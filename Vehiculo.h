@@ -1,19 +1,22 @@
 #include <iostream>
+#include <queue>
+#include <random>
+#include <thread>
+#include <chrono>
+#include <ncurses.h>
+#include <cmath>
 #include <string>
-class Vehiculo {
-    static int cont_vehiculos;
-    public:
-        float precio;
-        Vehiculo();
-        ~Vehiculo();
-        void generaVehiculo();        
+// Clase Vehiculo
+class Vehiculo
+{
+public:
+    int categoria;
+    float tarifa ;
+    std::string nombreCategoria = "";
+    // Constructor
+    Vehiculo(int categoria);
+    // Método para obtener la tarifa del peaje
+    float obtenerTarifa();
+    Vehiculo generarVehiculoAleatorio();
 };
-class Moto : public Vehiculo{
-    static int contMoto;
-    private:
-        char miChar;
-    public :
-        Moto();
-        ~Moto();
-};
-
+// Función para generar un vehículo aleatorio

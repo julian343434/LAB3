@@ -1,52 +1,4 @@
-#include <iostream>
-#include <queue>
-#include <random>
-#include <thread>
-#include <chrono>
-#include <ncurses.h>
-
-// Clase Vehiculo
-class Vehiculo {
-public:
-    int categoria; // Categoría del vehículo
-
-    // Constructor
-    Vehiculo(int cat) {
-        categoria = cat;
-    }
-
-    // Método para obtener la tarifa del peaje
-    float obtenerTarifa() {
-        float tarifa;
-        switch (categoria) {
-            case 1:
-                tarifa = 5.0;
-                break;
-            case 2:
-                tarifa = 10.0;
-                break;
-            case 3:
-                tarifa = 2.0;
-                break;
-            default:
-                tarifa = 0.0;
-        }
-        return tarifa;
-    }
-};
-
-// Función para generar un vehículo aleatorio
-Vehiculo generarVehiculoAleatorio() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(1, 3);
-
-    int categoria = distr(gen);
-    Vehiculo vehiculo(categoria);
-
-    return vehiculo;
-}
-
+#include "Vehiculo.cpp"
 int main() {
     // Inicializar ncurses
     initscr();
@@ -102,7 +54,8 @@ int main() {
 
         // Generar vehículo aleatorio y agregar a cola
         Vehiculo vehiculo = generarVehiculoAleatorio();
-        if (vehiculo.categoria <= 1) {
+        int num_aleatorio = std::rand() % 2; // Generar número aleatorio entre 0 y 1
+        if (std::round(num_aleatorio) == 0) { // Redondear al entero más cercano
             cola1.push(vehiculo);
         } else {
             cola2.push(vehiculo);
