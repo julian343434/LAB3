@@ -61,15 +61,18 @@ int main() {
     // Generar vehículos aleatorios y agregar a colas
     for (int i = 0; i < 10; i++) {
         Vehiculo vehiculo = generarVehiculoAleatorio();
-        if (vehiculo.categoria == 1) {
+        if (vehiculo.categoria <= 1) {
             cola1.push(vehiculo);
         } else {
             cola2.push(vehiculo);
         }
     }
 
+    // Inicializar contador de tiempo
+    int tiempo_total = 0;
+
     // Loop principal
-    while (true) {
+    while (tiempo_total < 120) {
         // Limpiar pantalla
         clear();
 
@@ -99,23 +102,23 @@ int main() {
 
         // Generar vehículo aleatorio y agregar a cola
         Vehiculo vehiculo = generarVehiculoAleatorio();
-        if (vehiculo.categoria == 1) {
+        if (vehiculo.categoria <= 1) {
             cola1.push(vehiculo);
         } else {
             cola2.push(vehiculo);
         }
 
-        // Esperar un tiempo
-    // Esperar un tiempo aleatorio entre 1 y 10 segundos
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distr(1, 10);
-    int tiempo = distr(gen);
-    std::this_thread::sleep_for(std::chrono::seconds(tiempo));
-}
+        // Esperar un tiempo aleatorio entre 1 y 10 segundos
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distr(1, 10);
+        int tiempo = distr(gen);
+        tiempo_total += tiempo;
+        std::this_thread::sleep_for(std::chrono::seconds(tiempo));
+    }
 
-// Finalizar ncurses
-endwin();
+    // Finalizar ncurses
+    endwin();
 
-return 0;
+    return 0;
 }
